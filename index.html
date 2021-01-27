@@ -26,7 +26,10 @@
                                             </span>
                                         </div>
                                     </div>
-                                </div>        
+                                </div>
+                                <div class="uk-card-footer">
+                                    {{ file.updated }}
+                                </div>
                             </a>                                
                         </div>
                     </div>            
@@ -47,9 +50,24 @@
         data: {
             defaultImg: 'images/file.png',
             files: [
-                { 'name': 'File Renamer', path: 'files/FileRenamer.exe', description: 'test description thats a little longer then the rest', img: 'images/exe.png' },
-                { 'name': 'Folder Cleanup', path: 'files/FolderCleanup.exe', description: 'test description', img: 'images/exe.png' },
-                { 'name': 'Folder Creator', path: 'files/FolderCreator.exe', description: 'test description', img: 'images/exe.png' },
+                { name: 'File Renamer', 
+                  path: 'files/FileRenamer.exe', 
+                  description: 'Rename multiple files at once, search/replace and add to front or back', 
+                  img: 'images/exe.png',
+                  updated: '2021-01-27'
+                },
+                { name: 'Folder Cleanup', 
+                  path: 'files/FolderCleanup.exe', 
+                  description: 'Remove duplicate files', 
+                  img: 'images/exe.png',
+                  updated: '2021-01-27'
+                },
+                { name: 'Folder Creator', 
+                  path: 'files/FolderCreator.exe',
+                  description: 'Create a folder that automatically adds the current date', 
+                  img: 'images/exe.png',
+                  updated: '2021-01-27'
+                },
             ],
         },
     })
