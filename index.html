@@ -15,7 +15,7 @@
                                 <div class="uk-card uk-card-small uk-card-default uk-card-body uk-height-small">
                                     <div class="uk-grid uk-grid-small" uk-grid>
                                         <div class="uk-width-auto">
-                                            <img :src="file.img" alt="images/zip.png" width="50">
+                                            <img :src="file.img" :alt="defaultImg" width="50">
                                         </div>
                                         <div class="uk-width-expand">
                                             <h3 class="uk-margin-remove">
@@ -45,6 +45,7 @@
     new Vue({
         el: '#app',
         data: {
+            defaultImg: '/images/file.png',
             files: [
                 { 'name': 'File Renamer', path: 'files/FileRenamer.exe', description: 'test description thats a little longer then the rest', img: '/images/exe.png' },
                 { 'name': 'Folder Cleanup', path: 'files/FolderCleanup.exe', description: 'test description', img: 'images/exe.png' },
