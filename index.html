@@ -12,8 +12,8 @@
                     <div class="uk-grid uk-grid-small uk-child-width-1-5@xl uk-child-width-1-4@l uk-child-width-1-3@m uk-child-width-1-2@s" uk-grid>
                         <div v-for="(file, index) in files" :key="index">
                             <a class="uk-link-reset" :href="file.path" download>
-                                <div class="uk-card uk-card-small uk-card-default uk-height-small">
-                                    <div class="uk-card-body">
+                                <div class="uk-card uk-card-small uk-card-default">
+                                    <div class="uk-card-body uk-height-small">
                                         <div class="uk-grid uk-grid-small" uk-grid>
                                             <div class="uk-width-auto">
                                                 <img :src="file.img" :alt="defaultImg" width="50">
