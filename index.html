@@ -81,8 +81,8 @@
             ],
         },
         
-        created: {
-            this.files.sort(function(a, b){return a.updated - b.updated});   
+        created() {
+            this.files.sort(function(a, b){return new Date(b.updated) - new Date(a.updated)});
         }
     })
 
