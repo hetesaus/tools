@@ -8,36 +8,49 @@
                 <div class="uk-margin">
                     <h3>Tools</h3>
                 </div>
+
                 <div class="uk-margin">
-                    <div class="uk-grid uk-grid-small uk-child-width-1-5@xl uk-child-width-1-4@l uk-child-width-1-3@m uk-child-width-1-2@s" uk-grid>
-                        <div v-for="(file, index) in files" :key="index">
-                            <a class="uk-link-reset" :href="file.path" download>
-                                <div class="uk-card uk-card-small uk-card-default">
-                                    <div class="uk-card-body uk-height-small">
-                                        <div class="uk-grid uk-grid-small" uk-grid>
-                                            <div class="uk-width-auto">
-                                                <img :src="file.img" :alt="defaultImg" width="50">
-                                            </div>
-                                            <div class="uk-width-expand">
-                                                <h3 class="uk-margin-remove">
-                                                    {{ file.name }}
-                                                </h3>
-                                                <span class="uk-text-meta">
-                                                    {{ file.description }}
-                                                </span>
+                    <div uk-filter="target: .tagFilter">
+                        <ul v-if="tags !== []" class="uk-subnav uk-subnav-pill">
+                            <li uk-filter-control class="uk-active"><a href="#">All</a></li>
+                            <li v-for="(tag, index) in tags" :key="index" :uk-filter-control="'.' + tag" class="uk-padding-remove">
+                                <a href="#">
+                                    {{ tag }}
+                                </a>
+                            </li>
+                        </ul>
+
+                        <ul class="tagFilter uk-grid uk-grid-small uk-child-width-1-5@xl uk-child-width-1-4@l uk-child-width-1-3@m uk-child-width-1-2@s" uk-grid>
+                            <li v-for="(file, index) in files" :key="index" :class="file.tags">
+                                <a class="uk-link-reset" :href="file.path" download>
+                                    <div class="uk-card uk-card-small uk-card-default">
+                                        <div class="uk-card-body uk-height-small">
+                                            <div class="uk-grid uk-grid-small" uk-grid>
+                                                <div class="uk-width-auto">
+                                                    <img v-if="file.img !== ''" :src="file.img" width="50">
+                                                    <img v-else src="images/default.png" width="50">
+                                                </div>
+                                                <div class="uk-width-expand">
+                                                    <h3 class="uk-margin-remove">
+                                                        {{ file.name }}
+                                                    </h3>
+                                                    <span class="uk-text-meta">
+                                                        {{ file.description }}
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
+                                        <div v-if="file.updated !== ''" class="uk-card-footer uk-text-meta">
+                                            <span>
+                                                last updated: {{ file.updated }}
+                                            </span>
+                                        </div>
                                     </div>
-                                    <div class="uk-card-footer uk-text-meta">
-                                        <span>
-                                            last updated: {{ file.updated }}
-                                        </span>
-                                    </div>
-                                </div>
-                            </a>                                
-                        </div>
-                    </div>            
-                </div>    
+                                </a>                                
+                            </li>
+                        </ul>
+                    </div>
+                </div>   
             </div>
         </div>
     </body>
@@ -46,55 +59,70 @@
 <script src="https://unpkg.com/vue"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.12/js/uikit.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.12/js/uikit-icons.min.js"></script>
+<script src="settings.js"></script>
 
 <script>
 
     new Vue({
         el: '#app',
         data: {
-            defaultImg: 'images/file.png',
+            tags: [],
             files: [
                 { name: 'Folder Cleanup', 
                   path: 'files/FolderCleanup.zip', 
                   description: 'Removes duplicate files with suffixes (0-9) and -Copy.', 
+                  tags: ['folder'],
                   img: 'images/exe.png',
                   updated: '2021-01-01'
                 },
                 { name: 'Folder Creator', 
                   path: 'files/FolderCreator.zip',
                   description: 'Creates a folder prefixed with the current date.', 
+                  tags: ['folder'],
                   img: 'images/exe.png',
                   updated: '2021-01-01'
                 },
                 { name: 'Brightness Modifier', 
                   path: 'files/BrightnessModifier.zip',
                   description: 'Quickly modify the screen brightness to a set value or custom value.', 
+                  tags: ['utility'],
                   img: 'images/exe.png',
                   updated: '2021-01-31'
                 },
                 { name: 'File Renamer', 
                   path: 'files/FileRenamer.zip', 
                   description: 'Rename multiple files at once, search/replace and add to front or back.', 
+                  tags: ['file'],
                   img: 'images/exe.png',
                   updated: '2021-01-27'
                 },
                 { name: 'Alphabet Organizer', 
                   path: 'files/AlphabetOrganizer.zip', 
                   description: 'Groups all files into folders by the first character and (0-9).', 
+                  tags: ['folder'],
                   img: 'images/exe.png',
                   updated: '2021-01-01'
                 },
                 { name: 'Clock', 
                   path: 'files/Clock.zip', 
                   description: 'Standalone clock that will always be visible.', 
+                  tags: ['utility'],
                   img: 'images/exe.png',
                   updated: '2021-01-01'
                 },
             ],
         },
-        
+
         created() {
             this.files.sort(function(a, b){return new Date(b.updated) - new Date(a.updated)});
+
+            for (let i = 0; i < this.files.length; i++) {
+                for (let o = 0; o < this.files[i].tags.length; o++) {
+                    if (this.tags.includes(this.files[i].tags[o]) == false) {
+                        this.tags.push(this.files[i].tags[o]);
+                    }
+                }
+            }
         }
     })
 
